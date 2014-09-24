@@ -1,5 +1,5 @@
 """
-Django settings for ask_pupkin project.
+Django settings for ask-pupkin project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -47,9 +47,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'ask_pupkin.urls'
+ROOT_URLCONF = 'ask-pupkin.urls'
 
-WSGI_APPLICATION = 'ask_pupkin.wsgi.application'
+WSGI_APPLICATION = 'ask-pupkin.wsgi.application'
 
 
 # Database
