@@ -1,0 +1,18 @@
+<table>
+  {% for item in query_dict.iterlists %}
+  <tr>
+	<th>{{ item.0 }}</th>
+	<td>
+	  {% if item.1|length > 1 %}
+	  <ol>
+		{% for value in item.1 %}
+		<li>{{ value }}</li>
+		{% endfor %}
+	  </ol>
+	  {% else %}
+	  {{ item.1.0 }}
+	  {% endif %}
+	</td>
+  </tr>
+  {% endfor %}
+</table>

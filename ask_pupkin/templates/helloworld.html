@@ -1,0 +1,15 @@
+<h1>привет, мир</h1>
+
+{% with request.GET as query_dict %}
+{% if query_dict|length %}
+<h2>GET</h2>
+{% include 'query_dict_block.html' %}
+{% endif %}
+{% endwith %}
+
+{% with request.POST as query_dict %}
+{% if query_dict|length %}
+<h2>POST</h2>
+{% include 'query_dict_block.html' %}
+{% endif %}
+{% endwith %}
