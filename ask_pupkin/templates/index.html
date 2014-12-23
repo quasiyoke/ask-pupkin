@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1 class="body-title">New Questions</h1>
+  <a class="hot-questions-link" href="#">Hot questions</a>
+{% for i in 'abc' %}
+<div class="question">
+  <div class="question-side">
+	<img class="userpic">
+	<div class="question-side-options">
+	  {% spaceless %}
+	  <div class="voting">
+		<div class="vote-amount">5</div>
+		<div class="vote-buttons">
+		  <button class="vote-button">▲</button>
+		  <button class="vote-button">▼</button>
+		</div>
+	  </div>
+	  {% endspaceless %}
+	</div>
+  </div>
+  <div class="question-body">
+	<h2 class="question-title"><a href="#">How to build a moon park?</a></h2>
+	<p>Guys, I have a trouble with a moonpark. Can't find the black-jack</p>
+	<p class="question-bottom">
+	  <a href="#">answer <span class="badge">3</span></a>
+	  Tags:
+	  <a href="#">black-jack</a>
+	  <a href="#">bender</a>
+	  <a href="#">moonpark</a>
+	</p>
+  </div>
+</div>
+{% endfor %}
+<div class="paginator">
+{% for c in '1234567' %}
+<a class="buttonish-link" href="#">{{ c }}</a>
+{% endfor %}
+...
+<a class="buttonish-link" href="#">53</a>
+</div>
+{% endblock %}
+

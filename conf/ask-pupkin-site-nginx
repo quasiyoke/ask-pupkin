@@ -10,8 +10,6 @@ server {
 
 	server_name localhost;
 
-	proxy_cache one;
-
 	location /uploads {
 	    root /home/quasiyoke/git/ask-pupkin;
 		try_files $uri =404;
@@ -26,5 +24,6 @@ server {
 
 	location / {
 		proxy_pass http://backend;    
+		proxy_cache one;
 	}
 }
