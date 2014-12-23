@@ -116,10 +116,14 @@ button:active {
 	margin-left: 2em;
 }
 
+input {
+	padding: .1em .5em;
+	border-radius: .2em;
+	border: .1em solid #000;
+}
+
 .header-search-input {
 	font-size: 100%;
-	padding: 2px 10px;
-	border-radius: 4px;
 	margin-right: 1em;
 }
 
@@ -295,4 +299,48 @@ button:active {
 	box-shadow: 2px 2px 0 #000;
 	left: 0;
 	top: 0;
+}
+
+.large-form {
+	width: 600px;
+	font-size: 130%;
+	margin: 3em auto 0;
+}
+
+.large-form > p {
+	margin-top: .7em;
+}
+
+.large-form label {
+	display: inline-block;
+	text-align: right;
+	width: 200px;
+}
+
+.large-form input {
+	font-size: 110%;
+	width: 12em;
+}
+
+.large-form .errorlist {
+	color: #a35e00;
+	font-weight: bolder;
+	font-size: 90%;
+	margin-left: 210px;
+	margin-top: .7em;
+	line-height: .9;
+}
+
+.large-form .errorlist + p {
+	margin-top: 0;
+}
+
+.large-form .errorlist + p input {
+	background-color: #ffe8d7;
+	border-color: #800;
+}
+
+.large-form > p.submit-wrap {
+	margin-top: 2em;
+	text-align: center;
 }

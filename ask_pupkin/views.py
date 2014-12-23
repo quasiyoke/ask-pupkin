@@ -1,6 +1,7 @@
 from django.views.decorators import csrf as csrf_decorators
 from django.views.generic import base as base_views
 from django.views.generic import edit as edit_views
+import forms
 
 
 class Helloworld(base_views.TemplateView):
@@ -21,7 +22,9 @@ class Home(base_views.TemplateView):
 
 class Login(edit_views.FormView):
     template_name = 'login.html'
+    form_class = forms.LoginForm
 
 
 class Signup(edit_views.FormView):
     template_name = 'signup.html'
+    form_class = forms.SignupForm
