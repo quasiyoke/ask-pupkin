@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block body %}
+<h1>Login</h1>
+<form class="large-form login-form" action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <p class="submit-wrap">
+	<button>Login</button>
+  </p>
+</form>
+{% endblock %}
