@@ -10,14 +10,14 @@ server {
 
 	server_name localhost;
 
-	location /uploads {
+	location /uploads/ {
 	    root /home/quasiyoke/git/ask-pupkin;
 		try_files $uri =404;
 		expires 1w;
 	}
 
-	location ~* \.(css|js|jpeg|jpg|png|svg|gif|ico)$ {
-	    root /home/quasiyoke/git/ask-pupkin/static;
+	location /static/ {
+	    root /home/quasiyoke/git/ask-pupkin;
 		try_files $uri =404;
 		expires 1M;
 	}
