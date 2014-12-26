@@ -11,14 +11,15 @@ class User(models.Model):
 class Question(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
-    author = models.ForeignKey('User')
+    author = models.ForeignKey('User', related_name='questions')
     created = models.DateTimeField()
     tags = models.ManyToManyField('Tag')
 
 
 class Response(models.Model):
     text = models.TextField()
-    author = models.ForeignKey('User')
+    author = models.ForeignKey('User', related_name='responses')
+    question = models.ForeignKey('Question', related_name='responses')
     is_right = models.BooleanField(default=False)
 
 

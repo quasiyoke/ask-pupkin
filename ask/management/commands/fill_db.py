@@ -85,6 +85,7 @@ def write_question(question_file):
     write_entry(question_file, get_text())
     write_entry(question_file, random.randint(1, USERS_COUNT))
     write_entry(question_file, get_date())
+    write_entry(question_file, random.randint(1, QUESTIONS_COUNT))
     end_entry(question_file)
     counter += 1
 
