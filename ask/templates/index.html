@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <h1 class="body-title">New Questions</h1>
-  <a class="hot-questions-link" href="#">Hot questions</a>
-{% for i in 'abc' %}
+<h1 class="body-title">New Questions</h1>
+<a class="hot-questions-link" href="#">Hot questions {{ paginator.num_pages }}</a>
+
+{% for question in page_obj %}
 <div class="question">
   <div class="question-side">
 	<img class="userpic">
 	<div class="question-side-options">
 	  {% spaceless %}
 	  <div class="voting">
-		<div class="vote-amount">5</div>
+		<div class="vote-amount">{{ question.author.rating }}</div>
 		<div class="vote-buttons">
 		  <button class="vote-button">▲</button>
 		  <button class="vote-button">▼</button>
@@ -20,24 +21,28 @@
 	</div>
   </div>
   <div class="question-body">
-	<h2 class="question-title"><a href="#">How to build a moon park?</a></h2>
-	<p>Guys, I have a trouble with a moonpark. Can't find the black-jack</p>
+	<h2 class="question-title"><a href="#">{{ question.title }}</a></h2>
+	<p>{{ question.text }}</p>
 	<p class="question-bottom">
-	  <a href="#">answer <span class="badge">3</span></a>
+	  <a href="#">answer <span class="badge">{{ question.responses.count }}</span></a>
 	  Tags:
-	  <a href="#">black-jack</a>
-	  <a href="#">bender</a>
-	  <a href="#">moonpark</a>
+	  {% for tag in question.tags.all %}
+	  <a href="#">{{ tag.text }}</a>
+	  {% endfor %}
 	</p>
   </div>
 </div>
 {% endfor %}
-<div class="paginator">
-{% for c in '1234567' %}
-<a class="buttonish-link" href="#">{{ c }}</a>
-{% endfor %}
-...
-<a class="buttonish-link" href="#">53</a>
-</div>
-{% endblock %}
 
+{% if page_obj.has_other_pages %}
+<div class="paginator">
+  {% if page_obj.has_previous %}
+  <a class="buttonish-link" href="{% url 'home' %}?page={{ page_obj.previous_page_number }}">&lt;</a>
+  {% endif %}  
+  <span class="page-number">page #{{ page_obj.number }}</span>
+  {% if page_obj.has_next %}
+  <a class="buttonish-link" href="{% url 'home' %}?page={{ page_obj.next_page_number }}">&gt;</a>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

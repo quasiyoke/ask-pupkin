@@ -96,7 +96,7 @@ button:active {
 
 .title-wrap {
 	float: left;
-	margin-top: .7em;
+	margin: .7em 0;
 }
 
 .title {
@@ -129,6 +129,10 @@ input {
 
 .status-wrap {
 	float: right;
+}
+
+.status-wrap_logged-out {
+	margin-top: 1.4em;
 }
 
 .userpic {
@@ -249,7 +253,7 @@ input {
 }
 
 .question-body {
-	float: left;
+	margin-left: 135px;
 }
 
 .question-title {
