@@ -7,8 +7,13 @@
 {% endblock %}
 
 {% block body %}
+{% if by_rating %}
+<h1 class="body-title">Hot Questions</h1>
+<a class="hot-questions-link" href="{% url 'home' %}">New Questions</a>
+{% else %}
 <h1 class="body-title">New Questions</h1>
-<a class="hot-questions-link" href="#">Hot questions {{ paginator.num_pages }}</a>
+<a class="hot-questions-link" href="{% url 'home' %}?by_rating=1">Hot Questions</a>
+{% endif %}
 
 {% for question in page_obj %}
 <div class="question">
@@ -41,11 +46,11 @@
 {% if page_obj.has_other_pages %}
 <div class="paginator">
   {% if page_obj.has_previous %}
-  <a class="buttonish-link" href="{% url 'home' %}?page={{ page_obj.previous_page_number }}">&lt;</a>
+  <a class="buttonish-link" href="{% url 'home' %}?by_rating={{ by_rating }}&page={{ page_obj.previous_page_number }}">&lt;</a>
   {% endif %}  
   <span class="page-number">page #{{ page_obj.number }}</span>
   {% if page_obj.has_next %}
-  <a class="buttonish-link" href="{% url 'home' %}?page={{ page_obj.next_page_number }}">&gt;</a>
+  <a class="buttonish-link" href="{% url 'home' %}?by_rating={{ by_rating }}&page={{ page_obj.next_page_number }}">&gt;</a>
   {% endif %}
 </div>
 {% endif %}

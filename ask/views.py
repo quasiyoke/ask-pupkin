@@ -24,6 +24,18 @@ class Home(list_views.ListView):
     model = models.Question
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = super(Home, self).get_queryset()
+        queryset = queryset.select_related()
+        if self.request.GET.get('by_rating'):
+            queryset = queryset.order_by('-author__rating')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
+        context['by_rating'] = self.request.GET.get('by_rating', '')
+        return context
+        
 
 class Login(edit_views.FormView):
     template_name = 'login.html'
@@ -35,6 +47,13 @@ class Signup(edit_views.FormView):
     form_class = forms.SignupForm
 
 
-class Question(detail_views.DetailView):
+class Question(detail_views.SingleObjectMixin, list_views.ListView):
     template_name = 'question.html'
-    model = models.Question
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object(queryset=models.Question.objects.all())
+        return super(Question, self).get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.object.responses.all()
