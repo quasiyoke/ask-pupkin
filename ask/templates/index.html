@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'css/questions.css' %}" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
 {% block body %}
 <h1 class="body-title">New Questions</h1>
 <a class="hot-questions-link" href="#">Hot questions {{ paginator.num_pages }}</a>
@@ -8,23 +14,21 @@
 <div class="question">
   <div class="question-side">
 	<img class="userpic">
-	<div class="question-side-options">
-	  {% spaceless %}
-	  <div class="voting">
-		<div class="vote-amount">{{ question.author.rating }}</div>
-		<div class="vote-buttons">
-		  <button class="vote-button">▲</button>
-		  <button class="vote-button">▼</button>
-		</div>
+	{% spaceless %}
+	<div class="voting">
+	  <div class="vote-amount">{{ question.author.rating }}</div>
+	  <div class="vote-buttons">
+		<button class="vote-button">▲</button>
+		<button class="vote-button">▼</button>
 	  </div>
-	  {% endspaceless %}
 	</div>
+	{% endspaceless %}
   </div>
   <div class="question-body">
-	<h2 class="question-title"><a href="#">{{ question.title }}</a></h2>
+	<h2 class="question-title"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h2>
 	<p>{{ question.text }}</p>
 	<p class="question-bottom">
-	  <a href="#">answer <span class="badge">{{ question.responses.count }}</span></a>
+	  <a href="{{ question.get_absolute_url }}">answer <span class="badge">{{ question.responses.count }}</span></a>
 	  Tags:
 	  {% for tag in question.tags.all %}
 	  <a href="#">{{ tag.text }}</a>

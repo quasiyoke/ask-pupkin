@@ -1,0 +1,43 @@
+.hot-questions-link {
+	vertical-align: middle;
+}
+
+.question {
+	border: 2px solid #000;
+	padding: .6em .7em;
+	overflow: hidden;
+	margin-top: 2em;
+}
+
+.question + .question {
+	margin-top: 1.3em;
+}
+
+.question-side {
+	width: 135px;
+	float: left;
+}
+
+.question-body {
+	margin-left: 135px;
+}
+
+.question-title {
+	margin: .2em 0 .4em;
+}
+
+.question-title a {
+	
+}
+
+.userpic.userpic_question {
+	float: left;
+}
+
+.question-side-options {
+
+}
+
+.question-bottom {
+	margin-top: 2em;
+}

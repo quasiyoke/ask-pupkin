@@ -86,6 +86,15 @@ button:active {
 	top: 0;
 }
 
+hr {
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #000;
+	border: 0;
+	margin: 2em 0;
+}
+
 /******** HEADER **********/
 
 .header {
@@ -136,13 +145,14 @@ input {
 }
 
 .userpic {
-	display: inline-block;
+	display: block;
 	vertical-align: middle;
 	width: 100px;
 	height: 100px;
 	border: 2px solid #000;
 	background: url("/static/img/noavatar.png");
-	background-size: 100px 100px;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
 .status-side {
@@ -183,97 +193,18 @@ input {
 	width: 20%;
 }
 
-.hot-questions-link {
-	vertical-align: middle;
-}
-
-.tags {
+.badge {
 	font-size: 70%;
-}
-
-.tags > * {
-	display: inline-block;
-	margin: 5px 2px;
-}
-
-.best-members {
-	list-style: none;
-	margin: 0;
-}
-
-.best-members > li {
-	margin: .3em 0;
-}
-
-.question {
-	border: 2px solid #000;
-	padding: .6em .7em;
-	overflow: hidden;
-	margin-top: 2em;
-}
-
-.question + .question {
-	margin-top: 1.3em;
-}
-
-.question-side {
-	width: 135px;
-	float: left;
-}
-
-.voting {
-	display: inline;
-	border: 1px solid #000;
-	font-size: 130%;
-}
-
-.vote-amount {
-	display: inline-block;
+	font-weight: bolder;
+	width: 2em;
+	height: 2em;
+	text-align: center;
 	vertical-align: middle;
-	border-right: 1px solid #000;
-	padding: .2em .5em;
-}
-
-.vote-buttons {
+	line-height: 2em;
+	border-radius: 100px;
 	display: inline-block;
-	vertical-align: middle;
-}
-
-.vote-button {
-	display: block;
-	border: 0;
-	box-shadow: none;
-	padding: 0;
-	background-color: transparent;
-	color: #000;
-	font-size: 50%;
-	left: 0;
-	top: 0;
-	line-height: 1;
-}
-
-.question-body {
-	margin-left: 135px;
-}
-
-.question-title {
-	margin: .2em 0 .4em;
-}
-
-.question-title a {
-	
-}
-
-.userpic.userpic_question {
-	float: left;
-}
-
-.question-side-options {
-	margin-top: .7em;
-}
-
-.question-bottom {
-	margin-top: 2em;
+	background: #aaa;
+	color: #fff;
 }
 
 .paginator {
@@ -304,6 +235,26 @@ input {
 	left: 0;
 	top: 0;
 }
+
+.tags {
+	font-size: 70%;
+}
+
+.tags > * {
+	display: inline-block;
+	margin: 5px 2px;
+}
+
+.best-members {
+	list-style: none;
+	margin: 0;
+}
+
+.best-members > li {
+	margin: .3em 0;
+}
+
+/****************** LARGE FORM *************************/
 
 .large-form {
 	width: 600px;
@@ -347,4 +298,38 @@ input {
 .large-form > p.submit-wrap {
 	margin-top: 2em;
 	text-align: center;
+}
+
+/**************** VOTING **********************/
+
+.voting {
+	display: inline-block;
+	border: 1px solid #000;
+	font-size: 130%;
+	margin-top: .7em;
+}
+
+.vote-amount {
+	display: inline-block;
+	vertical-align: middle;
+	border-right: 1px solid #000;
+	padding: .2em .5em;
+}
+
+.vote-buttons {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.vote-button {
+	display: block;
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+	background-color: transparent;
+	color: #000;
+	font-size: 50%;
+	left: 0;
+	top: 0;
+	line-height: 1;
 }

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import urlresolvers
 from django.contrib.auth.models import User
 
 
@@ -14,6 +15,9 @@ class Question(models.Model):
     author = models.ForeignKey('User', related_name='questions')
     created = models.DateTimeField()
     tags = models.ManyToManyField('Tag')
+
+    def get_absolute_url(self):
+        return urlresolvers.reverse('question', kwargs={'pk': self.pk})
 
 
 class Response(models.Model):

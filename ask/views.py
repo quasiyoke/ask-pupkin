@@ -1,5 +1,6 @@
 from django.views.decorators import csrf as csrf_decorators
 from django.views.generic import base as base_views
+from django.views.generic import detail as detail_views
 from django.views.generic import edit as edit_views
 from django.views.generic import list as list_views
 import forms
@@ -32,3 +33,8 @@ class Login(edit_views.FormView):
 class Signup(edit_views.FormView):
     template_name = 'signup.html'
     form_class = forms.SignupForm
+
+
+class Question(detail_views.DetailView):
+    template_name = 'question.html'
+    model = models.Question

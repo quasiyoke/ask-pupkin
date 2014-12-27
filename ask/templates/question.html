@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'css/question.css' %}" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block body %}
+<div class="question">
+  <div class="question-side">
+	<img class="userpic userpic_question">
+	{% spaceless %}
+	<div class="voting">
+	  <div class="vote-amount">{{ question.author.rating }}</div>
+	  <div class="vote-buttons">
+		<button class="vote-button">▲</button>
+		<button class="vote-button">▼</button>
+	  </div>
+	</div>
+	{% endspaceless %}
+  </div>
+  <div class="question-body">
+	<h1 class="body-title">{{ object.title }}</h1>
+	<p class="question-body-text">{{ question.text }}</p>
+  	<p class="question-bottom">
+	  Tags:
+	  {% for tag in question.tags.all %}
+	  <a href="#">{{ tag.text }}</a>
+	  {% endfor %}
+	</p>
+  </div>
+</div>
+
+{% for answer in object.responses.all %}
+<div class="answer">
+  <div class="answer-side">
+	<img class="userpic">
+	<div class="answer-side-options">
+	  {% spaceless %}
+	  <div class="voting">
+		<div class="vote-amount">{{ answer.author.rating }}</div>
+		<div class="vote-buttons">
+		  <button class="vote-button">▲</button>
+		  <button class="vote-button">▼</button>
+		</div>
+	  </div>
+	  {% endspaceless %}
+	</div>
+  </div>
+  <div class="answer-body">
+	{{ answer.text }}
+  </div>
+</div>
+{% endfor %}
+
+<hr>
+
+{% if user.is_authenticated %}
+<form class="" action="" method="post">
+  </form>
+{% else %}
+<p>Do you want to answer this question? <a href="{% url 'login' %}">Login</a></p>
+{% endif %}
+{% endblock %}
