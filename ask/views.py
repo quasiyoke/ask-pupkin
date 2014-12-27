@@ -29,17 +29,14 @@ class Home(list_views.ListView):
         queryset = queryset.select_related()
         if self.request.GET.get('by_rating'):
             queryset = queryset.order_by('-author__rating')
+        else:            
+            queryset = queryset.order_by('-created')
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
         context['by_rating'] = self.request.GET.get('by_rating', '')
         return context
-        
-
-class Login(edit_views.FormView):
-    template_name = 'login.html'
-    form_class = forms.LoginForm
 
 
 class Signup(edit_views.FormView):

@@ -6,7 +6,8 @@ urlpatterns = patterns(
     '',
     url(r'^helloworld\.wsgi$', views.Helloworld.as_view(), name='helloworld'),
     url(r'^$', views.Home.as_view(), name='home'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}, name='logout'),
     url(r'^questions/(?P<pk>\d+)/$', views.Question.as_view(), name='question'),
     url(r'^signup/$', views.Signup.as_view(), name='signup'),
-    url(r'^login/$', views.Login.as_view(), name='login'),
 )
