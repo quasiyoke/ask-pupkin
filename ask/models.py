@@ -14,7 +14,7 @@ class Question(models.Model):
     text = models.TextField()
     author = models.ForeignKey('User', related_name='questions')
     created = models.DateTimeField()
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', related_name='questions')
 
     def get_absolute_url(self):
         return urlresolvers.reverse('question', kwargs={'pk': self.pk})

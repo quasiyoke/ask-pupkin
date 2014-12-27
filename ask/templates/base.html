@@ -39,22 +39,15 @@
 		<div class="body-sidebar">
 		  <h2>Popular Tags</h2>
 		  <div class="tags">
-			<div style="font-size: 130%">perl</div>
-			<div style="font-size: 120%">python</div>
-			<div style="font-size: 130%">TechnoPark</div>
-			<div style="font-size: 80%">MySQL</div>
-			<div style="font-size: 120%">django</div>
-			<div style="font-size: 90%">Mail.Ru</div>
-			<div style="font-size: 110%">Voloshin</div>
-			<div style="font-size: 120%">Firefox</div>
+			{% for tag in popular_tags %}
+			<div style="font-size: 100%">{{ tag.text }}</div>
+			{% endfor %}
 		  </div>
 		  <h2 class="">Best Members</h2>
 		  <ul class="best-members">
-			<li><a href="#">Mr. Freeman</a></li>
-			<li><a href="#">Dr. House</a></li>
-			<li><a href="#">Bender</a></li>
-			<li><a href="#">Queen Victoria</a></li>
-			<li><a href="#">V. Pupkin</a></li>
+			{% for member in best_users %}
+			<li><a href="#">{{ member.user.username }}</a></li>
+			{% endfor %}
 		  </ul>
 		</div>
 		<div class="body">

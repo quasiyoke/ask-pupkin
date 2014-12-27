@@ -87,6 +87,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django.core.context_processors.i18n',
+    'ask.context_processors.best_users',
+    'ask.context_processors.popular_tags',
 )
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
