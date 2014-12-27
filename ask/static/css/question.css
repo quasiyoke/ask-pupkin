@@ -59,3 +59,9 @@
 .answer-bottom {
 	margin-top: 2em;
 }
+
+.answer-submit-wrap {
+	margin-top: .6em;
+	position: relative;
+	left: 3px;
+}

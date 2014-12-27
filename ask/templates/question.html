@@ -4,6 +4,8 @@
 
 {% block head %}
 <link href="{% static 'css/question.css' %}" rel="stylesheet" type="text/css" media="screen">
+<script src="{% static 'js/jquery.validate.js' %}"></script>
+<script src="{% static 'js/question.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -46,6 +48,8 @@
 		</div>
 	  </div>
 	  {% endspaceless %}
+	  <br>
+	  <input type="checkbox" id="correct_{{ answer.pk }}"> <label for="correct_{{ answer.pk }}">Correct</label>
 	</div>
   </div>
   <div class="answer-body">
@@ -69,8 +73,13 @@
 <hr>
 
 {% if user.is_authenticated %}
-<form class="" action="" method="post">
-  </form>
+<form class="answer-form" action="" method="post">
+  {% csrf_token %}
+  <textarea class="answer-form-text" placeholder="Type your answer here" name="answer"></textarea>
+  <div class="answer-submit-wrap">
+	<button class="answer-submit">Send</button>
+  </div>
+</form>
 {% else %}
 <p>Do you want to answer this question? <a href="{% url 'login' %}">Login</a></p>
 {% endif %}

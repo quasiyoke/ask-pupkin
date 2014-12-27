@@ -95,6 +95,7 @@ def write_response(response_file):
     write_entry(response_file, get_text())
     write_entry(response_file, random.randint(1, USERS_COUNT))
     write_entry(response_file, random.randint(0, 1))
+    write_entry(response_file, get_date())
     end_entry(response_file)
     counter += 1
 

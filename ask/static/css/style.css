@@ -86,6 +86,13 @@ button:active {
 	top: 0;
 }
 
+textarea {
+	display: block;
+	border: 2px solid #000;
+	font-size: 100%;
+	width: 100%;
+}
+
 hr {
 	display: block;
 	width: 100%;
@@ -336,4 +343,11 @@ input {
 	left: 0;
 	top: 0;
 	line-height: 1;
+}
+
+.gauge {
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	background: url("../img/gauge.gif");
 }

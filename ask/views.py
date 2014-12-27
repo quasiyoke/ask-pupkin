@@ -68,4 +68,23 @@ class Question(detail_views.SingleObjectMixin, list_views.ListView):
         return super(Question, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.object.responses.all()
+        return self.object.responses.order_by('-created').all()
+
+    def post(self, request, pk):
+        if not request.user.is_authenticated():
+            return http.HttpResponse(status=401)
+        text = request.POST.get('answer')
+        if not text:
+            return http.HttpResponseBadRequest()
+        try:
+            question = models.Question.objects.get(pk=pk)
+        except models.Question.DoesNotExist:
+            return http.HttpResponseNotFound()
+        response = models.Response(
+            text=text,
+            question=question,
+            author=request.user.ask_user,
+            is_right=False,
+        )
+        response.save()
+        return http.HttpResponse()

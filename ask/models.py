@@ -25,6 +25,7 @@ class Response(models.Model):
     author = models.ForeignKey('User', related_name='responses')
     question = models.ForeignKey('Question', related_name='responses')
     is_right = models.BooleanField(default=False)
+    created = models.DateTimeField()
 
 
 class Tag(models.Model):
