@@ -19,12 +19,12 @@
 		</div>
 		{% if user.is_authenticated %}
 		<div class="status-wrap">
-		  <a href="#"><img class="userpic" src="/static/img/noavatar.png"></a>
+		  <a href="#"><img class="userpic userpic_header" src="{% if user.ask_user.avatar %}{{ user.ask_user.avatar }}{% else %}/static/img/noavatar.png{% endif %}"></a>
 		  <div class="status-side">
-			<a class="status-side-profile-link" href="#">Dr. Pepper </a>
+			<a class="status-side-profile-link" href="#">{{ user.username }}</a>
 			<div class="status-side-bottom">
 			  <a class="status-side-bottom-link" href="#">settings</a>
-			  <form method="post" action="#"><button class="linkish-button">Logout</button></form>
+			  <a class="status-side-bottom-link" href="{% url 'logout' %}?next={{ request.path }}">logout</a>
 			</div>
 		  </div>
 		</div>

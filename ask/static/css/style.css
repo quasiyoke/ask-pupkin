@@ -155,6 +155,10 @@ input {
 	background-repeat: no-repeat;
 }
 
+.userpic.userpic_header {
+	display: inline-block;
+}
+
 .status-side {
 	display: inline-block;
 	vertical-align: middle;

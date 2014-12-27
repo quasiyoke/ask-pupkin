@@ -1,3 +1,6 @@
+from django import http
+from django.contrib import auth
+from django.contrib.auth import models as auth_models
 from django.views.decorators import csrf as csrf_decorators
 from django.views.generic import base as base_views
 from django.views.generic import detail as detail_views
@@ -42,6 +45,18 @@ class Home(list_views.ListView):
 class Signup(edit_views.FormView):
     template_name = 'signup.html'
     form_class = forms.SignupForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        auth_user = auth_models.User.objects.create_user(form.cleaned_data['login'], form.cleaned_data['email'], form.cleaned_data['password'])
+        user = models.User(
+            rating=0,
+            user=auth_user,
+        )
+        user.save()
+        auth_user = auth.authenticate(username=form.cleaned_data['login'], password=form.cleaned_data['password'])
+        auth.login(self.request, auth_user)
+        return http.HttpResponseRedirect(self.get_success_url())
 
 
 class Question(detail_views.SingleObjectMixin, list_views.ListView):

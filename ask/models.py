@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class User(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='ask_user')
     avatar = models.ImageField(upload_to='users_avatars')
     rating = models.IntegerField()
 
