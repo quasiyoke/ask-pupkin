@@ -6,6 +6,15 @@
 <link href="{% static 'css/question.css' %}" rel="stylesheet" type="text/css" media="screen">
 <script src="{% static 'js/jquery.validate.js' %}"></script>
 <script src="{% static 'js/question.js' %}"></script>
+{% if user.is_authenticated %}
+<script class="answer-template" type="text/html">
+  {% with user.ask_user.rating as answer_rating %}
+  {% with '<%- text %>' as answer_text %}
+  {% include 'answer-block.html' %}
+  {% endwith %}
+  {% endwith %}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -34,29 +43,15 @@
   </div>
 </div>
 
-{% for answer in page_obj %}
-<div class="answer">
-  <div class="answer-side">
-	<img class="userpic">
-	<div class="answer-side-options">
-	  {% spaceless %}
-	  <div class="voting">
-		<div class="vote-amount">{{ answer.author.rating }}</div>
-		<div class="vote-buttons">
-		  <button class="vote-button">▲</button>
-		  <button class="vote-button">▼</button>
-		</div>
-	  </div>
-	  {% endspaceless %}
-	  <br>
-	  <input type="checkbox" id="correct_{{ answer.pk }}"> <label for="correct_{{ answer.pk }}">Correct</label>
-	</div>
-  </div>
-  <div class="answer-body">
-	{{ answer.text }}
-  </div>
+<div class="answers">
+  {% for answer in page_obj %}
+  {% with answer.author.rating as answer_rating %}
+  {% with answer.text as answer_text %}
+  {% include 'answer-block.html' %}
+  {% endwith %}
+  {% endwith %}
+  {% endfor %}
 </div>
-{% endfor %}
 
 {% if page_obj.has_other_pages %}
 <div class="paginator">

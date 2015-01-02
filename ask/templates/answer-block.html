@@ -1,0 +1,21 @@
+<div class="answer">
+  <div class="answer-side">
+	<img class="userpic">
+	<div class="answer-side-options">
+	  {% spaceless %}
+	  <div class="voting">
+		<div class="vote-amount">{{ answer_rating }}</div>
+		<div class="vote-buttons">
+		  <button class="vote-button">▲</button>
+		  <button class="vote-button">▼</button>
+		</div>
+	  </div>
+	  {% endspaceless %}
+	  <br>
+	  <input type="checkbox" id="correct_{{ answer.pk }}"> <label for="correct_{{ answer.pk }}">Correct</label>
+	</div>
+  </div>
+  <div class="answer-body">
+	{{ answer_text }}
+  </div>
+</div>
