@@ -3,11 +3,6 @@ from django.contrib.auth import models as auth_models
 import models
 
 
-class LoginForm(forms.Form):
-    login = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
-
-
 class SignupForm(forms.Form):
     email = forms.EmailField()
     login = forms.CharField()

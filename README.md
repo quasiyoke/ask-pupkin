@@ -2,6 +2,18 @@
 
 Example web project for my Technopark study.
 
+## Installation
+
+### DB
+
+You can use ``fill_db`` Django command to perform filling DB with random data. Because of large amount of data, we use ``LOAD DATA INFILE`` MySQL statement which needs ``FILE`` privilege.
+
+    GRANT FILE ON *.* TO askpupkin@localhost;
+
+After that you may execute this:
+
+    ./manage.py fill_db
+
 ## Screenshots
 
 ###Home page:

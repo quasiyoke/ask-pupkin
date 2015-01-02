@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from django.core.management.base import BaseCommand
+import os
 import random
+import time
+from os import path
+from django import db
+from django.conf import settings
+from django.core.management.base import BaseCommand
 
 
 counter = 1
-f = open('/home/quasiyoke/ya/text/words-en.txt')
-WORDS = f.read().split('\r\n')
+f = open(path.join(settings.BASE_DIR, 'res', 'words-en.txt'), 'rb')
+WORDS = f.read().split('\n')
 f.close()
 unique_words_counter = 1
-
-USERS_COUNT = 13000
-QUESTIONS_COUNT = 120000
-RESPONSES_COUNT = 1200000
-TAGS_COUNT = 120
-QUESTION_TAGS_COUNT = QUESTIONS_COUNT * 3
 
 
 def write_entry(f, s):
@@ -43,7 +42,11 @@ def get_email():
     return '%s@%s.com' % (get_unique_word(), get_unique_word(), )
 
 def get_date():
-    return '2014-12-23 11:13:42'
+    f = '%Y-%m-%d %H:%M:%S'
+    start_time = time.mktime(time.strptime('1995-01-01 01:01:01', f))
+    end_time = time.mktime(time.strptime('2015-01-01 01:01:01', f))
+    t = start_time + (end_time - start_time) * random.random()
+    return time.strftime(f, time.localtime(t))
 
 def get_unique_word():
     global unique_words_counter
@@ -85,7 +88,6 @@ def write_question(question_file):
     write_entry(question_file, get_text())
     write_entry(question_file, random.randint(1, USERS_COUNT))
     write_entry(question_file, get_date())
-    write_entry(question_file, random.randint(1, QUESTIONS_COUNT))
     end_entry(question_file)
     counter += 1
 
@@ -94,6 +96,7 @@ def write_response(response_file):
     write_entry(response_file, counter)
     write_entry(response_file, get_text())
     write_entry(response_file, random.randint(1, USERS_COUNT))
+    write_entry(response_file, random.randint(1, QUESTIONS_COUNT))
     write_entry(response_file, random.randint(0, 1))
     write_entry(response_file, get_date())
     end_entry(response_file)
@@ -115,38 +118,67 @@ def write_question_tag(response_file):
     counter += 1
 
 
+USERS_COUNT = 13000
+QUESTIONS_COUNT = 120000
+RESPONSES_COUNT = 1200000
+TAGS_COUNT = 120
+QUESTION_TAGS_COUNT = QUESTIONS_COUNT * 3
+
+SIMPLE_TABLES = {
+    'ask_question': {
+        'WRITER': write_question,
+        'COUNT': QUESTIONS_COUNT,
+    },
+    'ask_response': {
+        'WRITER': write_response,
+        'COUNT': RESPONSES_COUNT
+    },
+    'ask_tag': {
+        'WRITER': write_tag,
+        'COUNT': TAGS_COUNT
+    },
+    'ask_question_tags': {
+        'WRITER': write_question_tag,
+        'COUNT': QUESTION_TAGS_COUNT
+    },
+}
+
+
+def fill_table(cursor, table, filename):
+    cursor.execute('LOAD DATA INFILE %s IGNORE INTO TABLE ' + table, [filename, ])
+
+def get_filename(table):
+    return path.join(settings.BASE_DIR, table + '.csv')
+
 class Command(BaseCommand):
     help = 'Fills the DB with some random data.'
 
     def handle(self, *args, **options):
-        django_user = open('django_user.dat', 'wb')
-        ask_user = open('ask_user.dat', 'wb')
+        cursor = db.connection.cursor()
+        cursor.execute('SET foreign_key_checks = 0')
+
+        auth_user_filename = get_filename('auth_user')
+        ask_user_filename = get_filename('ask_user')
+        django_user = open(auth_user_filename, 'wb')
+        ask_user = open(ask_user_filename, 'wb')
         for i in xrange(USERS_COUNT):
             write_user(django_user, ask_user)
-        f.close()
-        f.close()
+        django_user.close()
+        ask_user.close()
+        fill_table(cursor, 'auth_user', auth_user_filename)
+        fill_table(cursor, 'ask_user', ask_user_filename)
+        os.remove(auth_user_filename)
+        os.remove(ask_user_filename)
 
-        counter = 1
-        question = open('question.dat', 'wb')
-        for i in xrange(QUESTIONS_COUNT):
-            write_question(question)
-        question.close()
+        for table, info in SIMPLE_TABLES.iteritems():
+            counter = 1
+            filename = get_filename(table)
+            f = open(filename, 'wb')
+            writer = info['WRITER']
+            for i in xrange(info['COUNT']):
+                writer(f)
+            f.close()
+            fill_table(cursor, table, filename)
+            os.remove(filename)
 
-        counter = 1
-        response = open('response.dat', 'wb')
-        for i in xrange(RESPONSES_COUNT):
-            write_response(response)        
-        response.close()
-
-        counter = 1
-        unique_words_counter = 1
-        tag = open('tag.dat', 'wb')
-        for i in xrange(TAGS_COUNT):
-            write_tag(tag)        
-        tag.close()
-
-        counter = 1
-        question_tag = open('question_tag.dat', 'wb')
-        for i in xrange(QUESTION_TAGS_COUNT):
-            write_question_tag(question_tag)        
-        question_tag.close()
+        cursor.execute('SET foreign_key_checks = 1')
