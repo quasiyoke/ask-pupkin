@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+
+{% block head %}
+<link href="{% static 'css/questions.css' %}" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+
+{% block body %}
+
+{% if paginator.count %}
+
+{% if by_rating %}
+<h1 class="body-title">Hot "{{ query }}" Questions ({{ paginator.count }})</h1>
+<a class="hot-questions-link" href="{% url 'questions' %}?q={{ query }}">New Questions</a>
+{% else %}
+<h1 class="body-title">New "{{ query }}" Questions ({{ paginator.count }})</h1>
+<a class="hot-questions-link" href="{% url 'questions' %}?q={{ query }}&by_rating=1">Hot Questions</a>
+{% endif %}
+
+{% for question in page_obj %}
+<div class="question">
+  <div class="question-side">
+	<img class="userpic">
+	{% spaceless %}
+	<div class="voting">
+	  <div class="vote-amount">{{ question.author.rating }}</div>
+	  <div class="vote-buttons">
+		<button class="vote-button">▲</button>
+		<button class="vote-button">▼</button>
+	  </div>
+	</div>
+	{% endspaceless %}
+  </div>
+  <div class="question-body">
+	<h2 class="question-title"><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h2>
+	<p>{{ question.text }}</p>
+	<p class="question-bottom">
+	  <a href="{{ question.get_absolute_url }}">answer <span class="badge">{{ question.responses.count }}</span></a>
+	  Tags:
+	  {% for tag in question.tags.all %}
+	  <a href="#">{{ tag.text }}</a>
+	  {% endfor %}
+	</p>
+  </div>
+</div>
+{% endfor %}
+
+{% if page_obj.has_other_pages %}
+<div class="paginator">
+  {% if page_obj.has_previous %}
+  <a class="buttonish-link" href="{% url 'questions' %}?q={{ query }}&by_rating={{ by_rating }}&page={{ page_obj.previous_page_number }}">&lt;</a>
+  {% endif %}  
+  <span class="page-number">page #{{ page_obj.number }}</span>
+  {% if page_obj.has_next %}
+  <a class="buttonish-link" href="{% url 'questions' %}?q={{ query }}&by_rating={{ by_rating }}&page={{ page_obj.next_page_number }}">&gt;</a>
+  {% endif %}
+</div>
+{% endif %}
+
+{% else %}{% comment %} If not paginator.count {% endcomment %}
+
+<h2>Nothing was found by request "{{ query }}"</h2>
+
+{% endif %}
+
+{% endblock %}

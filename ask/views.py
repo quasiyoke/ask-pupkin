@@ -88,3 +88,19 @@ class Question(detail_views.SingleObjectMixin, list_views.ListView):
         )
         response.save()
         return http.HttpResponse()
+
+
+class Questions(list_views.ListView):
+    queryset = models.Question.search
+    template_name = 'questions.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(Questions, self).get_context_data(**kwargs)
+        context['by_rating'] = self.request.GET.get('by_rating', '')
+        context['query'] = self.request.REQUEST.get('q', '')
+        return context
+
+    def get_queryset(self):
+        queryset = super(Questions, self).get_queryset()
+        return queryset.query(self.request.REQUEST.get('q', ''))

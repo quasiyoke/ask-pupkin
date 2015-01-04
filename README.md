@@ -4,6 +4,10 @@ Example web project for my Technopark study.
 
 ## Installation
 
+### Requirements
+
+AskPupkin uses [Django-Sphinx](https://github.com/dcramer/django-sphinx) for search.
+
 ### DB
 
 You can use ``fill_db`` Django command to perform filling DB with random data. Because of large amount of data, we use ``LOAD DATA INFILE`` MySQL statement which needs ``FILE`` privilege.
@@ -18,7 +22,14 @@ After that you may execute this:
 
 To install Sphinx search, execute this:
 
+    CREATE USER sphinx@localhost IDENTIFIED BY 'topsecret';
+    GRANT ALL ON askpupkin.* TO sphinx@localhost;
+
+    $ mysql -uroot -ptopsecret \askpupkin < sphinx-search-view.sql
     # ln -s ~/git/ask-pupkin/conf/sphinx-search.conf /etc/sphinxsearch/ask-pupkin.conf
+    # indexer --all --config /etc/sphinxsearch/ask-pupkin.conf
+    # sudo mkdir /var/run/sphinxsearch
+    # searchd --config /etc/sphinxsearch/ask-pupkin.conf
 
 ## Screenshots
 

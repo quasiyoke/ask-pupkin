@@ -1,3 +1,4 @@
+from djangosphinx import models as djangosphinx_models
 from django.db import models
 from django.core import urlresolvers
 from django.contrib.auth.models import User
@@ -15,6 +16,8 @@ class Question(models.Model):
     author = models.ForeignKey('User', related_name='questions')
     created = models.DateTimeField()
     tags = models.ManyToManyField('Tag', related_name='questions')
+
+    search = djangosphinx_models.SphinxSearch('ask_pupkin_catalog')
 
     def get_absolute_url(self):
         return urlresolvers.reverse('question', kwargs={'pk': self.pk})

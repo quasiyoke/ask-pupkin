@@ -14,8 +14,8 @@
 	  <div class="header">
 		<div class="title-wrap">
 		  <h1 class="title"><a class="title-link" href="{% url 'home' %}">AskPupkin</a></h1>
-		  <form class="header-search-form" action="{% url 'home' %}" method="get">
-			<input class="header-search-input" type="text" placeholder="Search" name="q">
+		  <form class="header-search-form" action="{% url 'questions' %}" method="get">
+			<input class="header-search-input" type="text" placeholder="Search" name="q" value="{{ query }}">
 			<button>Ask!</button>
 		  </form>
 		</div>
