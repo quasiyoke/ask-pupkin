@@ -33,7 +33,7 @@ jQuery(function($){
 					;
 				})
 			;
-			answerForm.find('button').after('<div class="gauge">');
+			answerForm.find('button').append('<div class="gauge">');
 		}
 	});
 });

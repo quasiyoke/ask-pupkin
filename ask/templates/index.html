@@ -18,13 +18,13 @@
 {% for question in page_obj %}
 <div class="question">
   <div class="question-side">
-	<img class="userpic">
+	<img class="userpic" title="{{ question.author.user.username }}">
 	{% spaceless %}
-	<div class="voting">
+	<div class="voting" data-id="{{ question.author.pk }}">
 	  <div class="vote-amount">{{ question.author.rating }}</div>
 	  <div class="vote-buttons">
-		<button class="vote-button">▲</button>
-		<button class="vote-button">▼</button>
+		<button class="vote-button vote-button_up">▲</button>
+		<button class="vote-button vote-button_down">▼</button>
 	  </div>
 	</div>
 	{% endspaceless %}

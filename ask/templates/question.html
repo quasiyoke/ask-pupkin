@@ -8,7 +8,7 @@
 <script src="{% static 'js/question.js' %}"></script>
 {% if user.is_authenticated %}
 <script class="answer-template" type="text/html">
-  {% with user.ask_user.rating as answer_rating %}
+  {% with user.ask_user as answer_author %}
   {% with '<%- text %>' as answer_text %}
   {% include 'answer-block.html' %}
   {% endwith %}
@@ -20,13 +20,13 @@
 {% block body %}
 <div class="question">
   <div class="question-side">
-	<img class="userpic userpic_question">
+	<img class="userpic userpic_question" title="{{ question.author.user.username }}">
 	{% spaceless %}
-	<div class="voting">
+	<div class="voting" data-id="{{ question.author.pk }}">
 	  <div class="vote-amount">{{ question.author.rating }}</div>
 	  <div class="vote-buttons">
-		<button class="vote-button">▲</button>
-		<button class="vote-button">▼</button>
+		<button class="vote-button vote-button_up">▲</button>
+		<button class="vote-button vote-button_down">▼</button>
 	  </div>
 	</div>
 	{% endspaceless %}
@@ -45,7 +45,7 @@
 
 <div class="answers">
   {% for answer in page_obj %}
-  {% with answer.author.rating as answer_rating %}
+  {% with answer.author as answer_author %}
   {% with answer.text as answer_text %}
   {% include 'answer-block.html' %}
   {% endwith %}

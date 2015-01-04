@@ -320,6 +320,7 @@ input, textarea {
 /**************** VOTING **********************/
 
 .voting {
+	position: relative;
 	display: inline-block;
 	border: 1px solid #000;
 	font-size: 130%;
@@ -352,9 +353,10 @@ input, textarea {
 }
 
 .gauge {
-	display: inline-block;
+	position: absolute;
 	width: 16px;
 	height: 16px;
 	background: url("../img/gauge.gif");
-	margin-left: .5em;
+	right: -25px;
+	top: .4em;
 }

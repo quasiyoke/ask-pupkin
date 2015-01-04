@@ -1,13 +1,13 @@
 <div class="answer">
   <div class="answer-side">
-	<img class="userpic">
+	<img class="userpic" title="{{ answer_author.user.username }}">
 	<div class="answer-side-options">
 	  {% spaceless %}
-	  <div class="voting">
-		<div class="vote-amount">{{ answer_rating }}</div>
+	  <div class="voting" data-id="{{ answer_author.pk }}">
+		<div class="vote-amount">{{ answer_author.rating }}</div>
 		<div class="vote-buttons">
-		  <button class="vote-button">▲</button>
-		  <button class="vote-button">▼</button>
+		  <button class="vote-button vote-button_up">▲</button>
+		  <button class="vote-button vote-button_down">▼</button>
 		</div>
 	  </div>
 	  {% endspaceless %}

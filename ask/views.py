@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from django import http
 from django.contrib import auth
@@ -41,6 +42,27 @@ class Home(list_views.ListView):
         context = super(Home, self).get_context_data(**kwargs)
         context['by_rating'] = self.request.GET.get('by_rating', '')
         return context
+
+
+class Profile(detail_views.DetailView):
+    template_name = 'index.html'
+    model = models.User
+
+    def post(self, request, pk):
+        if not request.user.is_authenticated():
+            return http.HttpResponse(status=401)
+        self.object = self.get_object()
+        response = {}
+        try:
+            delta = int(self.request.POST['delta'])
+        except (ValueError, KeyError, ):
+            response['status'] = 'error'
+        else:
+            self.object.rating += delta
+            self.object.save()
+            response['status'] = 'ok'
+            response['new_rating'] = self.object.rating
+        return http.HttpResponse(json.dumps(response), mimetype='application/json')
 
 
 class Signup(edit_views.FormView):
