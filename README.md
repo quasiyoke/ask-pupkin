@@ -14,6 +14,12 @@ After that you may execute this:
 
     ./manage.py fill_db
 
+### Search
+
+To install Sphinx search, execute this:
+
+    # ln -s ~/git/ask-pupkin/conf/sphinx-search.conf /etc/sphinxsearch/ask-pupkin.conf
+
 ## Screenshots
 
 ###Home page:
