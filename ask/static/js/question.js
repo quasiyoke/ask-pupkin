@@ -36,4 +36,33 @@ jQuery(function($){
 			answerForm.find('button').append('<div class="gauge">');
 		}
 	});
+
+	$('body')
+		.on('change', '.correct-answer-checkbox', function(e){
+			e.preventDefault();
+			var isRight = $(this);
+			var container = isRight.next();
+			var id = /\d+/.exec(isRight.attr('id'))[0];
+			$.ajax({
+				type: 'post',
+				url: '/answers/' + id + '/',
+				data: {
+					is_right: isRight.prop('checked')
+				},
+				headers: {
+					'X-CSRFToken': $.cookie('csrftoken')
+				}
+			})
+				.always(function(){
+					container.find('.gauge').remove();
+				})
+				.success(function(response){
+					if('ok' === response.status){
+						isRight.prop(response.is_right);
+					}
+				})
+			;
+			container.append('<div class="gauge">');
+		})
+	;
 });

@@ -24,10 +24,12 @@
 	{% spaceless %}
 	<div class="voting" data-id="{{ question.author.pk }}">
 	  <div class="vote-amount">{{ question.author.rating }}</div>
+	  {% if user.is_authenticated %}
 	  <div class="vote-buttons">
 		<button class="vote-button vote-button_up">▲</button>
 		<button class="vote-button vote-button_down">▼</button>
 	  </div>
+	  {% endif %}
 	</div>
 	{% endspaceless %}
   </div>

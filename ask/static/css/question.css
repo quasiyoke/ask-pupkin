@@ -54,7 +54,7 @@
 }
 
 .answer-side-options {
-
+	
 }
 
 .answer-bottom {
@@ -69,4 +69,8 @@
 
 .answer-form-text {
 	box-sizing: border-box;
+}
+
+.correct-answer-label {
+	position: relative;
 }

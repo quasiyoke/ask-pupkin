@@ -5,14 +5,18 @@
 	  {% spaceless %}
 	  <div class="voting" data-id="{{ answer_author.pk }}">
 		<div class="vote-amount">{{ answer_author.rating }}</div>
+		{% if user.is_authenticated %}
 		<div class="vote-buttons">
 		  <button class="vote-button vote-button_up">▲</button>
 		  <button class="vote-button vote-button_down">▼</button>
 		</div>
+		{% endif %}
 	  </div>
 	  {% endspaceless %}
 	  <br>
-	  <input type="checkbox" id="correct_{{ answer.pk }}"> <label for="correct_{{ answer.pk }}">Correct</label>
+	  {% if user.is_authenticated %}
+	  <input class="correct-answer-checkbox" type="checkbox" id="correct_{{ answer.pk }}"{% if answer.is_right %} checked{% endif %}> <label class="correct-answer-label" for="correct_{{ answer.pk }}">Correct</label>
+	  {% endif %}
 	</div>
   </div>
   <div class="answer-body">

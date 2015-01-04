@@ -12,6 +12,29 @@ import forms
 import models
 
 
+class Response(detail_views.DetailView):
+    model = models.Response
+
+    def get(self, request, *args, **kwargs):
+        return self.http_method_not_allowed(request, *args, **kwargs)
+
+    def post(self, request, pk):
+        if not request.user.is_authenticated():
+            return http.HttpResponse(status=401)
+        self.object = self.get_object()
+        response = {}
+        try:
+            is_right = 'true' == self.request.POST['is_right']
+        except (ValueError, KeyError, ):
+            response['status'] = 'error'
+        else:
+            self.object.is_right = is_right
+            self.object.save()
+            response['status'] = 'ok'
+            response['is_right'] = self.object.is_right
+        return http.HttpResponse(json.dumps(response), mimetype='application/json')
+
+
 class Helloworld(base_views.TemplateView):
     template_name = 'helloworld.html'
 
