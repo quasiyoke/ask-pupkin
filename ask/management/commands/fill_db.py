@@ -145,6 +145,7 @@ SIMPLE_TABLES = {
 
 
 def fill_table(cursor, table, filename):
+    cursor.execute('ALTER TABLE ' + table + ' AUTO_INCREMENT = 1')
     cursor.execute('LOAD DATA INFILE %s IGNORE INTO TABLE ' + table, [filename, ])
 
 def get_filename(table):
