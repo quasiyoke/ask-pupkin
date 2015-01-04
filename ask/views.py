@@ -1,3 +1,4 @@
+from datetime import datetime
 from django import http
 from django.contrib import auth
 from django.contrib.auth import models as auth_models
@@ -90,7 +91,8 @@ class Question(detail_views.SingleObjectMixin, list_views.ListView):
         return http.HttpResponse()
 
 
-class Questions(list_views.ListView):
+class Questions(edit_views.FormMixin, list_views.ListView):
+    form_class = forms.QuestionForm
     queryset = models.Question.search
     template_name = 'questions.html'
     paginate_by = 10
@@ -98,9 +100,43 @@ class Questions(list_views.ListView):
     def get_context_data(self, **kwargs):
         context = super(Questions, self).get_context_data(**kwargs)
         context['by_rating'] = self.request.GET.get('by_rating', '')
-        context['query'] = self.request.REQUEST.get('q', '')
+        query = self.request.REQUEST.get('q', '')
+        context['query'] = query
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        context['form'] = form
         return context
+
+    def get_initial(self):
+        initial = super(Questions, self).get_initial()
+        initial['title'] = self.request.REQUEST.get('q', '')
+        return initial
 
     def get_queryset(self):
         queryset = super(Questions, self).get_queryset()
         return queryset.query(self.request.REQUEST.get('q', ''))
+
+    def get_success_url(self):
+        return self.question.get_absolute_url()
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+        self.object_list = self.get_queryset()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        question = models.Question(
+            title=form.cleaned_data['title'],
+            text=form.cleaned_data['text'],
+            author=self.request.user.ask_user,
+            created=datetime.now(),
+        )
+        question.save()
+        self.question = question
+        return super(Questions, self).form_valid(form)

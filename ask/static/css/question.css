@@ -2,6 +2,7 @@
 	margin-top: 20px;
 	border-bottom: 2px solid #000;
 	padding-bottom: 35px;
+	min-height: 220px;
 }
 
 .question-side {
@@ -64,4 +65,8 @@
 	margin-top: .6em;
 	position: relative;
 	left: 3px;
+}
+
+.answer-form-text {
+	box-sizing: border-box;
 }

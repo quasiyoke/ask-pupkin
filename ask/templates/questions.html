@@ -64,6 +64,19 @@
 
 <h2>Nothing was found by request "{{ query }}"</h2>
 
+{% endif %}{% comment %} EndIf not paginator.count {% endcomment %}
+
+{% if user.is_authenticated %}
+<p class="ask-invitation">Haven't found the question you need? Ask it below!</p>
+<form class="large-form" id="new-question-form" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <p class="submit-wrap">
+	<button>Ask!</button>
+  </p>
+</form>
+{% else %}
+<p class="ask-invitation">Haven't found the question you need? <a href="{% url 'login' %}?next={{ request.get_full_path }}#new-question-form">Login and ask!</a></p>
 {% endif %}
 
 {% endblock %}

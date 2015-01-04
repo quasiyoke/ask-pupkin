@@ -132,7 +132,7 @@ hr {
 	margin-left: 2em;
 }
 
-input {
+input, textarea {
 	padding: .1em .5em;
 	border-radius: .2em;
 	border: .1em solid #000;
@@ -286,6 +286,12 @@ input {
 .large-form input {
 	font-size: 110%;
 	width: 12em;
+}
+
+.large-form textarea {
+	font-size: 110%;
+	width: 12em;
+	margin-left: 210px;
 }
 
 .large-form .errorlist {

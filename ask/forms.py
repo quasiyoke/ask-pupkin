@@ -3,6 +3,12 @@ from django.contrib.auth import models as auth_models
 import models
 
 
+class QuestionForm(forms.Form):
+    title = forms.CharField()
+    text = forms.CharField(label='', widget=forms.Textarea())
+    tags = forms.CharField()
+
+
 class SignupForm(forms.Form):
     email = forms.EmailField()
     login = forms.CharField()
@@ -16,7 +22,7 @@ class SignupForm(forms.Form):
         except auth_models.User.DoesNotExist:
             pass
         else:
-            raise forms.ValidationError('Theres already user with such email.')
+            raise forms.ValidationError('There\'s already user with such email.')
         return email
 
     def clean_login(self):
@@ -26,7 +32,7 @@ class SignupForm(forms.Form):
         except auth_models.User.DoesNotExist:
             pass
         else:
-            raise forms.ValidationError('Theres already user with such login.')
+            raise forms.ValidationError('There\'s already user with such login.')
         return login
 
     def clean_password_confirmation(self):
