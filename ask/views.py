@@ -12,29 +12,6 @@ import forms
 import models
 
 
-class Response(detail_views.DetailView):
-    model = models.Response
-
-    def get(self, request, *args, **kwargs):
-        return self.http_method_not_allowed(request, *args, **kwargs)
-
-    def post(self, request, pk):
-        if not request.user.is_authenticated():
-            return http.HttpResponse(status=401)
-        self.object = self.get_object()
-        response = {}
-        try:
-            is_right = 'true' == self.request.POST['is_right']
-        except (ValueError, KeyError, ):
-            response['status'] = 'error'
-        else:
-            self.object.is_right = is_right
-            self.object.save()
-            response['status'] = 'ok'
-            response['is_right'] = self.object.is_right
-        return http.HttpResponse(json.dumps(response), mimetype='application/json')
-
-
 class Helloworld(base_views.TemplateView):
     template_name = 'helloworld.html'
 
@@ -68,7 +45,6 @@ class Home(list_views.ListView):
 
 
 class Profile(detail_views.DetailView):
-    template_name = 'index.html'
     model = models.User
 
     def post(self, request, pk):
@@ -85,6 +61,44 @@ class Profile(detail_views.DetailView):
             self.object.save()
             response['status'] = 'ok'
             response['new_rating'] = self.object.rating
+        return http.HttpResponse(json.dumps(response), mimetype='application/json')
+
+
+class ProfileEdit(edit_views.FormView):
+    template_name = 'profile_edit.html'
+    form_class = forms.ProfileEditForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.save()
+        return super(ProfileEdit, self).form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(ProfileEdit, self).get_form_kwargs()
+        kwargs['instance'] = self.request.user.ask_user
+        return kwargs
+
+
+class Response(detail_views.DetailView):
+    model = models.Response
+
+    def get(self, request, *args, **kwargs):
+        return self.http_method_not_allowed(request, *args, **kwargs)
+
+    def post(self, request, pk):
+        if not request.user.is_authenticated():
+            return http.HttpResponse(status=401)
+        self.object = self.get_object()
+        response = {}
+        try:
+            is_right = 'true' == self.request.POST['is_right']
+        except (ValueError, KeyError, ):
+            response['status'] = 'error'
+        else:
+            self.object.is_right = is_right
+            self.object.save()
+            response['status'] = 'ok'
+            response['is_right'] = self.object.is_right
         return http.HttpResponse(json.dumps(response), mimetype='application/json')
 
 
@@ -131,6 +145,7 @@ class Question(detail_views.SingleObjectMixin, list_views.ListView):
             question=question,
             author=request.user.ask_user,
             is_right=False,
+            created=datetime.now()
         )
         response.save()
         return http.HttpResponse()

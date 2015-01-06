@@ -23,7 +23,7 @@
 {% for question in page_obj %}
 <div class="question">
   <div class="question-side">
-	<img class="userpic" title="{{ question.author.user.username }}">
+	<img class="userpic" title="{{ question.author.user.username }}"{% if user.ask_user.avatar %} src="{{ question.author.avatar.url }}"{% endif %}>
 	{% spaceless %}
 	<div class="voting" data-id="{{ question.author.pk }}">
 	  <div class="vote-amount">{{ question.author.rating }}</div>

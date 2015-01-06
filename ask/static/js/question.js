@@ -12,6 +12,7 @@ jQuery(function($){
 		},
 		submitHandler: function(form){
 			var text = textInput.val();
+			answerForm.find('button').append('<div class="gauge">');
 			$.ajax({
 				type: 'post',
 				data: {
@@ -33,7 +34,6 @@ jQuery(function($){
 					;
 				})
 			;
-			answerForm.find('button').append('<div class="gauge">');
 		}
 	});
 
@@ -43,6 +43,7 @@ jQuery(function($){
 			var isRight = $(this);
 			var container = isRight.next();
 			var id = /\d+/.exec(isRight.attr('id'))[0];
+			container.append('<div class="gauge">');
 			$.ajax({
 				type: 'post',
 				url: '/answers/' + id + '/',
@@ -62,7 +63,6 @@ jQuery(function($){
 					}
 				})
 			;
-			container.append('<div class="gauge">');
 		})
 	;
 });

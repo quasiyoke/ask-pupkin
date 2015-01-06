@@ -6,6 +6,7 @@ jQuery(function($){
 			var container = button.closest('.voting');
 			var id = container.attr('data-id');
 			var delta = button.is('.vote-button_up') ? 1 : -1;
+			container.append('<div class="gauge">');
 			$.ajax({
 				type: 'post',
 				data: {
@@ -26,7 +27,6 @@ jQuery(function($){
 					}
 				})
 			;
-			container.append('<div class="gauge">');
 		})
 	;
 });

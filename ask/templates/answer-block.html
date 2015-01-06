@@ -1,6 +1,6 @@
 <div class="answer">
   <div class="answer-side">
-	<img class="userpic" title="{{ answer_author.user.username }}">
+	<img class="userpic" title="{{ answer_author.user.username }}"{% if answer_author.avatar %} src="{{ answer_author.avatar.url }}"{% endif %}>
 	<div class="answer-side-options">
 	  {% spaceless %}
 	  <div class="voting" data-id="{{ answer_author.pk }}">

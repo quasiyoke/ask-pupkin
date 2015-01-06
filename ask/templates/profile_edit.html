@@ -3,12 +3,12 @@
 {% load staticfiles %}
 
 {% block body %}
-<h1>Signup</h1>
-<form class="large-form signup-form" method="post">
+<h1>Edit your profile</h1>
+<form class="large-form" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
   <p class="submit-wrap">
-	<button>Signup</button>
+	<button>Save</button>
   </p>
 </form>
 {% endblock %}

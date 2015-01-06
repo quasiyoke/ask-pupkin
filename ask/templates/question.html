@@ -20,7 +20,7 @@
 {% block body %}
 <div class="question">
   <div class="question-side">
-	<img class="userpic userpic_question" title="{{ question.author.user.username }}">
+	<img class="userpic userpic_question" title="{{ question.author.user.username }}"{% if question.author.avatar %} src="{{ question.author.avatar.url }}"{% endif %}>
 	{% spaceless %}
 	<div class="voting" data-id="{{ question.author.pk }}">
 	  <div class="vote-amount">{{ question.author.rating }}</div>

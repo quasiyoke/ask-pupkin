@@ -61,6 +61,10 @@ To install Sphinx search, execute this:
 
 ![logout](https://raw.githubusercontent.com/quasiyoke/ask-pupkin/master/doc/img/screenshot-logout.png)
 
+###Profile editing page:
+
+![profile editing page](https://raw.githubusercontent.com/quasiyoke/ask-pupkin/master/doc/img/screenshot-profile-edit.png)
+
 ###Question page:
 
 ![question](https://raw.githubusercontent.com/quasiyoke/ask-pupkin/master/doc/img/screenshot-question.png)

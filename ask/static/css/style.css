@@ -162,8 +162,12 @@ input, textarea {
 	background-repeat: no-repeat;
 }
 
-.userpic.userpic_header {
+.userpic.userpic_header, .userpic.userpic_input {
 	display: inline-block;
+}
+
+.userpic.userpic_input br {
+	display: inline;
 }
 
 .status-side {
@@ -286,6 +290,10 @@ input, textarea {
 .large-form input {
 	font-size: 110%;
 	width: 12em;
+}
+
+.large-form input[type=file] {
+	width: 4em;
 }
 
 .large-form textarea {
