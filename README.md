@@ -8,6 +8,13 @@ Example web project for my Technopark study.
 
 AskPupkin uses [Django-Sphinx](https://github.com/dcramer/django-sphinx) for search.
 
+### Directories
+
+Folders for users' uploads should have right permissions.
+
+    $ chgrp -R www-data uploads
+    $ chmod -R g+w uploads
+
 ### DB
 
 You can use ``fill_db`` Django command to perform filling DB with random data. Because of large amount of data, we use ``LOAD DATA INFILE`` MySQL statement which needs ``FILE`` privilege.
